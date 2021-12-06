@@ -14,6 +14,9 @@ class Monitor:
     def command(self, cmd):
         params = {}
         params['command'] = cmd
+        self.session.post(self.webhook, {
+            'content': f'checking command {cmd}'
+        })
         r = self.session.get(self.baseurl, params=params)
         if self.cache.get(cmd) is None:
             logging.info(f'populated cache for command {cmd}')
